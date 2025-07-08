@@ -5,6 +5,7 @@ import { extractAssignmentsFromText } from "@/lib/assignmentExtractor"
 
 export const runtime = "nodejs" // use Node.js runtime for pdf/mammoth
 
+
 export async function POST(req: NextRequest) {
   const formData = await req.formData()
   const file = formData.get("file") as File | null
