@@ -1,11 +1,15 @@
 import mammoth from "mammoth"
+import pdfParse from "pdf-parse/lib/pdf-parse"
 
 export async function extractTextFromFile(buffer: Buffer, mimeType: string, fileName = ""): Promise<string> {
   if (mimeType === "application/pdf" || fileName.toLowerCase().endsWith(".pdf")) {
-    // For now, return a placeholder message for PDF files
-    // In a production environment, you would want to use a proper PDF parsing library
-    // that works in Node.js environments
-    throw new Error("PDF parsing is currently not supported. Please use DOCX files for now.")
+    try {
+      const data = await pdfParse(buffer)
+      return data.text
+    } catch (error) {
+      console.error("PDF parsing failed:", error)
+      throw new Error("Failed to parse PDF file. Please ensure the file is not corrupted and try again.")
+    }
   }
 
   // Most DOCX files come across with this mime type in browsers when using FormData uploads.

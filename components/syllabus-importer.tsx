@@ -82,7 +82,9 @@ export default function SyllabusImporter() {
       const file = files[0]
       if (
         file.name.toLowerCase().endsWith(".docx") ||
-        file.type.startsWith("application/vnd.openxmlformats-officedocument.wordprocessingml")
+        file.type.startsWith("application/vnd.openxmlformats-officedocument.wordprocessingml") ||
+        file.name.toLowerCase().endsWith(".pdf") ||
+        file.type === "application/pdf"
       ) {
         setFileName(file.name)
         setStatus("uploading")
@@ -144,7 +146,7 @@ export default function SyllabusImporter() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Syllabus Importer</CardTitle>
-        <CardDescription>Drag and drop a syllabus file (DOCX) to extract assignments.</CardDescription>
+        <CardDescription>Drag and drop a syllabus file (DOCX or PDF) to extract assignments.</CardDescription>
       </CardHeader>
       <CardContent>
         {status === "idle" && (
@@ -161,7 +163,7 @@ export default function SyllabusImporter() {
             <UploadCloud className="mx-auto h-12 w-12 text-muted-foreground" />
             <p className="mt-4 font-semibold text-lg">Drag & drop your file here</p>
             <p className="text-sm text-muted-foreground">or click to browse</p>
-            <Input type="file" className="sr-only" accept=".docx" />
+            <Input type="file" className="sr-only" accept=".docx,.pdf" />
           </div>
         )}
 
